@@ -1,6 +1,6 @@
 import React from "react";
-import Habit from "../../habit-tracker/src/components/habit";
 import "./app.css";
+import Habit from "./components/habit";
 
 function App() {
   return (
