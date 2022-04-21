@@ -17,13 +17,13 @@ export default class Habits extends Component {
   };
   render() {
     return (
-      <>
+      <div>
         <HabitAddForm onAdd={this.handleAdd} />
         <ul>
           {this.props.habits.map((habit) => (
             <Habit
-              habit={habit}
               key={habit.id}
+              habit={habit}
               onIncrement={this.handleIncrease}
               onDecrement={this.handleDecrease}
               onDelete={this.handleDelete}
@@ -34,7 +34,7 @@ export default class Habits extends Component {
         <button className="habits-reset" onClick={this.props.onReset}>
           Reset all
         </button>
-      </>
+      </div>
     );
   }
 }
