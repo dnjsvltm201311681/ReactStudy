@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Habit from "./habit";
+import HabitAddForm from "./habitAddForm";
 
 export default class Habits extends Component {
   handleIncrease = (habit) => {
@@ -11,19 +12,26 @@ export default class Habits extends Component {
   handleDelete = (habit) => {
     this.props.onDelete(habit);
   };
+  handleAdd = (name) => {
+    this.props.onAdd(name);
+  };
   render() {
     return (
-      <ul>
-        {this.props.habits.map((habit) => (
-          <Habit
-            habit={habit}
-            key={habit.id}
-            onIncrement={this.handleIncrease}
-            onDecrement={this.handleDecrease}
-            onDelete={this.handleDelete}
-          />
-        ))}
-      </ul>
+      <>
+        <HabitAddForm onAdd={this.handleAdd} />
+        <ul>
+          {this.props.habits.map((habit) => (
+            <Habit
+              habit={habit}
+              key={habit.id}
+              onIncrement={this.handleIncrease}
+              onDecrement={this.handleDecrease}
+              onDelete={this.handleDelete}
+              onAdd={this.handleAdd}
+            />
+          ))}
+        </ul>
+      </>
     );
   }
 }
