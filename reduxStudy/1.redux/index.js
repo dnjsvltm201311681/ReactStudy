@@ -1,24 +1,23 @@
 const { createStore } = require("redux");
 
-//불변성
-//히스토리,추적성
+//*****redux
 const reducer = (prevState, action) => {
   //새로운 state를 만듬
   switch (action.type) {
-    case "CHANGE_COMP_A":
+    case "LOG_IN":
       return {
         ...prevState,
-        compA: action.payload,
+        user: action.payload,
       };
-    case "CHANGE_COMP_B":
+    case "LOG_OUT":
       return {
         ...prevState,
-        compB: action.payload,
+        user: null,
       };
-    case "CHANGE_COMP_C":
+    case "ADD_POST":
       return {
         ...prevState,
-        compC: action.payload,
+        posts: [...prevState.posts, action.payload],
       };
     default: //type 오타를 위한 default
       return prevState;
@@ -26,10 +25,11 @@ const reducer = (prevState, action) => {
 };
 
 //*****객체
+//메모리문제에 대하여
+//얕은복사로 인해 이전것을 참조하기 때문에 생각보마 메모리 문제가 많이 발생하지 않는다.
 const initialState = {
-  compA: "a",
-  compB: 12,
-  compC: null,
+  user: null,
+  posts: [],
 };
 
 //*****store
@@ -43,14 +43,36 @@ store.subscribe(() => {
 
 console.log(store.getState());
 
-//*****action(편의를 위한 기능)
-const changeCompA = (payload) => {
+//*****action
+const logIn = (payload) => {
   return {
-    type: "CHANGE_COMP_A",
-    payload, //payload: payload
+    type: "LOG_IN",
+    payload,
+  };
+};
+const logOut = () => {
+  return {
+    type: "LOG_OUT",
+  };
+};
+const addPost = (payload) => {
+  return {
+    type: "ADD_POST",
+    payload,
   };
 };
 
 //*****dispatch
-store.dispatch(changeCompA("b"));
-console.log(store.getState());
+store.dispatch(logIn({ id: 1, name: "cky", admin: true }));
+console.log("2th", store.getState());
+
+store.dispatch(logOut());
+console.log("3th", store.getState());
+
+store.dispatch(addPost({ userId: 1, id: 1, content: "hello redux" }));
+console.log("4th", store.getState());
+
+store.dispatch(addPost({ userId: 1, id: 2, content: "hello redux2222" }));
+console.log("4th", store.getState());
+
+//cls
