@@ -11,7 +11,7 @@ const { logIn, logOut } = require("./actions/user");
 const initialState = {
   user: {
     isLoggingIn: true,
-    data: null,
+    payload: null,
   },
   posts: [],
 };
