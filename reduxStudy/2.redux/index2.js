@@ -1,4 +1,4 @@
-const { createStore } = require("redux");
+const { createStore, applyMiddleware } = require("redux");
 const reducer = require("./reducers/reducer");
 const { addPost } = require("./actions/post");
 const { logIn, logOut } = require("./actions/user");
@@ -16,7 +16,16 @@ const initialState = {
   posts: [],
 };
 
-const store = createStore(reducer, initialState);
+//미들웨어
+//중첩을  해둔 이유: 사이사이에 실행되는 시점을 위해서
+const firstMiddleWare = (store) => (dispatch) => (action) => {
+  console.log("액션로깅", action); //기본기능 실행전
+  dispatch(action); //기본기능
+  console.log("액션끝");
+};
+const enhancer = applyMiddleware(firstMiddleWare);
+
+const store = createStore(reducer, initialState, enhancer);
 
 store.subscribe(() => {
   console.log("change");
