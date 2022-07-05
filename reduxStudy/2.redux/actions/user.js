@@ -5,6 +5,7 @@ const logIn = (payload) => {
       setTimeout(() => {
         dispatch(loginSuccess({ userId: 1, name: "성공이름" }));
       }, 2000);
+      //axios.post().then().catch()으로 나중에 대체
     } catch (err) {
       dispatch(loginFailure(err));
     }
