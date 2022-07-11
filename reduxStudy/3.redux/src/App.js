@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logIn } from "./actions/user";
+import { logIn, logOut } from "./actions/user";
 function App() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -11,6 +11,10 @@ function App() {
         password: "cky",
       })
     );
+  }, []);
+
+  const onLogOut = useCallback(() => {
+    dispatch(logOut());
   }, []);
 
   const loginfunc = () => {
@@ -30,7 +34,11 @@ function App() {
       ) : (
         "로그인해줘요"
       )}
-      <button onClick={onClick}>로그인</button>
+      {!user.payload ? (
+        <button onClick={onClick}>로그인</button>
+      ) : (
+        <button onClick={onLogOut}>로그아웃</button>
+      )}
     </div>
   );
 }
